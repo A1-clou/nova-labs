@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Nova Labs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1e3a8a;
+            --primary-dark: #1e40af;
+            --secondary: #3730a3;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo-dot {
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-auth {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-left: 1rem;
+            padding-left: 1rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-auth a {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-auth a.signup {
+            background: white;
+            color: var(--primary-dark);
+        }
+
+        .nav-auth a.signup:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        .nav-auth a.login {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .nav-auth a.login:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            padding: 8rem 2rem 4rem;
+            background: rgba(15, 23, 42, 0.7);
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .profile-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .profile-subtitle {
+            font-size: 1.1rem;
+            color: white;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 500;
+        }
+
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+        }
+
+        .user-info {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .user-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .avatar-upload {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .user-avatar:hover .avatar-upload {
+            opacity: 1;
+        }
+
+        #avatarInput {
+            display: none;
+        }
+
+        .user-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .user-name:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .user-role {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .user-role:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .user-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .edit-input {
+            background: transparent;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            color: white;
+            padding: 5px 10px;
+            font-size: inherit;
+            width: 100%;
+            text-align: center;
+        }
+
+        .edit-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Projects Section */
+        .projects-section {
+            padding: 4rem 2rem;
+            background: var(--dark);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: white;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            font-weight: 500;
+        }
+
+        .upload-area {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            padding: 3rem;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            text-align: center;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: var(--accent);
+            background: rgba(30, 41, 59, 0.7);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .upload-text {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .upload-subtext {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            background: #0891b2;
+            transform: translateY(-2px);
+        }
+
+        #imageInput {
+            display: none;
+        }
+
+        .description-input {
+            width: 100%;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            color: white;
+            font-size: 1rem;
+            margin-top: 1rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .description-input::placeholder {
+            color: var(--gray);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .project-description {
+            color: var(--gray);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .project-date {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .delete-project {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .delete-project {
+            opacity: 1;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0f1c;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: white;
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .nav-auth {
+                margin-left: 0.5rem;
+                padding-left: 0.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(15, 23, 42, 0.98);
+                flex-direction: column;
+                padding: 5rem 2rem 2rem;
+                text-align: center;
+                gap: 2rem;
+                z-index: 999;
+                overflow-y: auto;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-auth {
+                border-left: none;
+                margin-left: 0;
+                padding-left: 0;
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            .nav-auth a {
+                width: 100%;
+                max-width: 200px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: relative;
+                z-index: 1001;
+            }
+
+            .mobile-menu-btn.active i::before {
+                content: "\f00d";
+            }
+
+            .profile-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .nav-links {
+                padding: 4rem 1rem 2rem;
+            }
+            
+            .profile-title {
+                font-size: 2rem;
+            }
+            
+            .upload-area {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-dot"></div>
+                <a href="index.html" style="color: white; text-decoration: none;">Nova Labs</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="technologies.html">Our Technologies</a>
+                <a href="programmes.html">Programmes</a>
+                <a href="projects.html">Projects</a>
+                <a href="profile.html" class="active">Profile</a>
+                <a href="policy.html">Policy</a>
+                <div class="nav-auth">
+                    <a href="login.html" class="login">Login</a>
+                    <a href="signup.html" class="signup">Sign Up</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="profile-container">
+            <div class="profile-header">
+                <h1 class="profile-title">Your Profile</h1>
+                <p class="profile-subtitle">Customize your profile and showcase your robotics projects</p>
+            </div>
+            
+            <div class="profile-content">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">
+                        <i class="fas fa-user-plus"></i>
+                        <div class="avatar-upload">Click to upload</div>
+                        <input type="file" id="avatarInput" accept="image/*">
+                    </div>
+                    <h2 class="user-name" id="userName" contenteditable="true">Click to add name</h2>
+                    <p class="user-role" id="userRole" contenteditable="true">Click to add role</p>
+                    <p style="color: white; margin-bottom: 1.5rem;">Member since <span id="memberSince">2024</span></p>
+                    
+                    <div class="user-stats">
+                        <div class="stat">
+                            <div class="stat-number" id="projectCount">0</div>
+                            <div class="stat-label">Projects</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" id="contributionCount">0</div>
+                            <div class="stat-label">Contributions</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="projects-section">
+                    <h2 class="section-title">Your Projects</h2>
+                    <p class="section-subtitle">Upload and manage your robotics projects</p>
+                    
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <h3 class="upload-text">Add New Project</h3>
+                        <p class="upload-subtext">Click to upload an image of your project</p>
+                        <input type="file" id="imageInput" accept="image/*">
+                        <button class="upload-btn" onclick="document.getElementById('imageInput').click()">
+                            Choose Image
+                        </button>
+                        <textarea class="description-input" id="projectDescription" placeholder="Describe your project..."></textarea>
+                    </div>
+                    
+                    <div class="projects-grid" id="projectsGrid">
+                        <div class="empty-state" id="emptyState">
+                            <i class="fas fa-robot"></i>
+                            <h3>No Projects Yet</h3>
+                            <p>Upload your first project to get started!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Nova Labs</h3>
+                <p style="color: white; line-height: 1.6;">
+                    Building the future of robotics through innovation, education, and community collaboration.
+                </p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="technologies.html">Technologies</a></li>
+                    <li><a href="programmes.html">Programmes</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="policy.html">Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Project Gallery</a></li>
+                    <li><a href="#">Community Forum</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Account</h3>
+                <ul class="footer-links">
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="signup.html">Sign Up</a></li>
+                    <li><a href="#">My Projects</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Nova Labs. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (navLinks.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        const navLinksItems = document.querySelectorAll('.nav-links a');
+        navLinksItems.forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.padding = '0.5rem 0';
+                nav.style.background = 'rgba(15, 23, 42, 0.95)';
+            } else {
+                nav.style.padding = '1rem 0';
+                nav.style.background = 'rgba(15, 23, 42, 0.9)';
+            }
+        });
+
+        // Profile editing functionality
+        const userAvatar = document.getElementById('userAvatar');
+        const avatarInput = document.getElementById('avatarInput');
+        const userName = document.getElementById('userName');
+        const userRole = document.getElementById('userRole');
+        const projectCount = document.getElementById('projectCount');
+        const contributionCount = document.getElementById('contributionCount');
+        const memberSince = document.getElementById('memberSince');
+
+        // Avatar upload
+        userAvatar.addEventListener('click', function() {
+            avatarInput.click();
+        });
+
+        avatarInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    userAvatar.innerHTML = `
+                        <img src="${e.target.result}" alt="Profile Avatar">
+                        <div class="avatar-upload">Change photo</div>
+                    `;
+                    userAvatar.querySelector('img').style.display = 'block';
+                    showNotification('Profile photo updated!');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Auto-save profile information
+        userName.addEventListener('blur', function() {
+            if (userName.textContent.trim() === '') {
+                userName.textContent = 'Click to add name';
+            }
+            updateStats();
+        });
+
+        userRole.addEventListener('blur', function() {
+            if (userRole.textContent.trim() === '') {
+                userRole.textContent = 'Click to add role';
+            }
+            updateStats();
+        });
+
+        // Project upload functionality
+        const imageInput = document.getElementById('imageInput');
+        const projectDescription = document.getElementById('projectDescription');
+        const projectsGrid = document.getElementById('projectsGrid');
+        const emptyState = document.getElementById('emptyState');
+        const uploadArea = document.getElementById('uploadArea');
+
+        // Start with empty projects array
+        let projects = [];
+
+        // Render projects
+        function renderProjects() {
+            if (projects.length === 0) {
+                emptyState.style.display = 'block';
+                projectsGrid.innerHTML = '';
+                projectsGrid.appendChild(emptyState);
+            } else {
+                emptyState.style.display = 'none';
+                projectsGrid.innerHTML = '';
+                
+                projects.forEach((project, index) => {
+                    const projectCard = document.createElement('div');
+                    projectCard.className = 'project-card';
+                    projectCard.innerHTML = `
+                        <img src="${project.image}" alt="${project.title}" class="project-image">
+                        <button class="delete-project" onclick="deleteProject(${index})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div class="project-content">
+                            <h3 class="project-title">${project.title}</h3>
+                            <p class="project-description">${project.description}</p>
+                            <p class="project-date">Created: ${project.date}</p>
+                        </div>
+                    `;
+                    projectsGrid.appendChild(projectCard);
+                });
+            }
+            updateStats();
+        }
+
+        // Delete project function
+        function deleteProject(index) {
+            projects.splice(index, 1);
+            renderProjects();
+            showNotification('Project deleted');
+        }
+
+        // Handle image upload
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const description = projectDescription.value.trim() || 'My robotics project';
+                    const userNameText = userName.textContent === 'Click to add name' ? 'My Project' : userName.textContent + "'s Project";
+                    
+                    // Add new project
+                    const newProject = {
+                        id: projects.length + 1,
+                        title: `${userNameText} ${projects.length + 1}`,
+                        description: description,
+                        image: e.target.result,
+                        date: new Date().toISOString().split('T')[0]
+                    };
+                    
+                    projects.unshift(newProject);
+                    renderProjects();
+                    
+                    // Reset form
+                    projectDescription.value = '';
+                    imageInput.value = '';
+                    
+                    // Show success notification
+                    showNotification('Project uploaded successfully!');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--accent)';
+            uploadArea.style.background = 'rgba(30, 41, 59, 0.7)';
+        });
+
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+            uploadArea.style.background = 'rgba(30, 41, 59, 0.5)';
+        });
+
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+            uploadArea.style.background = 'rgba(30, 41, 59, 0.5)';
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                imageInput.files = files;
+                const event = new Event('change');
+                imageInput.dispatchEvent(event);
+            }
+        });
+
+        // Update statistics
+        function updateStats() {
+            projectCount.textContent = projects.length;
+            contributionCount.textContent = projects.length * 3; // Simple calculation for demo
+        }
+
+        // Set current year for member since
+        memberSince.textContent = new Date().getFullYear();
+
+        // Notification function
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: rgba(30, 64, 175, 0.9);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                z-index: 10000;
+                font-weight: 500;
+                max-width: 300px;
+                animation: slideIn 0.3s ease-out;
+                display: flex;
+                align-items: center;
+            `;
+            
+            notification.innerHTML = `
+                <i class="fas fa-check-circle" style="margin-right: 10px; color: #10b981;"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Add CSS for notification animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initial render
+        renderProjects();
+        updateStats();
+    </script>
+</body>
+</html>

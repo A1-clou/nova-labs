@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Labs | Our Technologies</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1e3a8a;
+            --primary-dark: #1e40af;
+            --secondary: #3730a3;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo-dot {
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-auth {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-left: 1rem;
+            padding-left: 1rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-auth a {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-auth a.signup {
+            background: white;
+            color: var(--primary-dark);
+        }
+
+        .nav-auth a.signup:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        .nav-auth a.login {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .nav-auth a.login:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: white;
+            font-weight: 500;
+        }
+
+        /* Technologies Grid */
+        .technologies {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: white;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+            font-weight: 500;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .tech-card {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+
+        .tech-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .tech-content {
+            padding: 1.5rem;
+        }
+
+        .tech-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-icon {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .tech-description {
+            color: white;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        /* Projects Showcase */
+        .projects-showcase {
+            padding: 5rem 2rem;
+            background: rgba(15, 23, 42, 0.7);
+        }
+
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .project-tab {
+            padding: 0.8rem 1.5rem;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .project-tab.active {
+            background: white;
+            color: var(--primary-dark);
+        }
+
+        .project-tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.5s ease forwards;
+            cursor: pointer;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: white;
+        }
+
+        .project-description {
+            color: white;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        /* Tech Products Modal */
+        .tech-products-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tech-products-modal.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .modal-close {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: white;
+            color: var(--dark);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+            background: #f1f5f9;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            margin-top: 3rem;
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .modal-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .tech-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tech-product-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            animation: scaleIn 0.4s ease forwards;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .tech-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+            border-color: white;
+        }
+
+        .tech-product-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .tech-product-info {
+            padding: 1.5rem;
+        }
+
+        .tech-product-name {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .tech-product-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .tech-product-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .spec-badge {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.3rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            color: white;
+        }
+
+        .modal-loading {
+            text-align: center;
+            padding: 3rem;
+            display: none;
+        }
+
+        .modal-loading.active {
+            display: block;
+        }
+
+        .modal-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Infinite Scroll Section */
+        .infinite-scroll-section {
+            padding: 5rem 2rem;
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .infinite-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .infinite-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            min-height: 400px;
+        }
+
+        .loading-indicator {
+            text-align: center;
+            padding: 2rem;
+            display: none;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 1rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            color: white;
+            line-height: 1.6;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+        }
+
+        .btn-light {
+            background: white;
+            color: var(--primary-dark);
+            border: none;
+        }
+
+        .btn-light:hover {
+            background: #f1f5f9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0f1c;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: white;
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            color: white;
+        }
+
+        /* Circuit Dots */
+        .circuit-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: white;
+            opacity: 0.3;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .dot:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .dot:nth-child(2) {
+            top: 60%;
+            left: 85%;
+            animation-delay: 1s;
+        }
+
+        .dot:nth-child(3) {
+            top: 80%;
+            left: 15%;
+            animation-delay: 2s;
+        }
+
+        .dot:nth-child(4) {
+            top: 40%;
+            left: 90%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-20px) scale(1.1);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .nav-auth {
+                margin-left: 0.5rem;
+                padding-left: 0.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(15, 23, 42, 0.95);
+                flex-direction: column;
+                padding: 1rem 0;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-auth {
+                border-left: none;
+                margin-left: 0;
+                padding-left: 0;
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+            }
+
+            .nav-auth a {
+                width: 80%;
+                margin: 0 auto;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .tech-grid, .projects-grid, .infinite-grid, .tech-products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-close {
+                top: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .modal-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-dot"></div>
+                Nova Labs
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="technologies.html" class="active">Our Technologies</a>
+                <a href="#programmes">Programmes</a>
+                <a href="#projects">Projects</a>
+                <a href="#members">Members</a>
+                <a href="#policy">Policy</a>
+                <div class="nav-auth">
+                    <a href="login.html" class="login">Login</a>
+                    <a href="signup.html" class="signup">Sign Up</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="circuit-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <h1 class="page-title">Our Technologies</h1>
+        <p class="page-subtitle">
+            Explore the cutting-edge platforms and tools that power our innovative robotics and automation projects
+        </p>
+    </section>
+
+    <!-- Technologies Grid -->
+    <section class="technologies">
+        <h2 class="section-title">Technology Platforms</h2>
+        <p class="section-subtitle">
+            We work with a diverse range of hardware and software platforms to create innovative solutions
+        </p>
+        
+        <div class="tech-grid">
+            <div class="tech-card">
+                <img src="https://images.pexels.com/photos/177598/pexels-photo-177598.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Arduino Robotics" class="tech-image">
+                <div class="tech-content">
+                    <h3 class="tech-title">
+                        <i class="fas fa-microchip tech-icon"></i>
+                        Arduino Robotics
+                    </h3>
+                    <p class="tech-description">
+                        Build intelligent robotic systems using Arduino microcontrollers. Our projects range from simple automated devices to complex autonomous robots with sensor integration and IoT connectivity.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="tech-card">
+                <img src="https://images.pexels.com/photos/1293265/pexels-photo-1293265.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Raspberry Pi" class="tech-image">
+                <div class="tech-content">
+                    <h3 class="tech-title">
+                        <i class="fas fa-desktop tech-icon"></i>
+                        Raspberry Pi Systems
+                    </h3>
+                    <p class="tech-description">
+                        Develop powerful computing solutions with Raspberry Pi. Our projects include computer vision applications, home automation systems, and edge computing devices for industrial applications.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="tech-card">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Coding Projects" class="tech-image">
+                <div class="tech-content">
+                    <h3 class="tech-title">
+                        <i class="fas fa-code tech-icon"></i>
+                        Coding & Software
+                    </h3>
+                    <p class="tech-description">
+                        Create sophisticated software solutions for robotics and automation. Our coding projects include machine learning algorithms, control systems, and user interfaces for complex robotic applications.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="tech-card">
+                <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Mechatronics" class="tech-image">
+                <div class="tech-content">
+                    <h3 class="tech-title">
+                        <i class="fas fa-cogs tech-icon"></i>
+                        Mechatronics
+                    </h3>
+                    <p class="tech-description">
+                        Design integrated mechanical, electrical, and computer systems. Our mechatronics projects combine precision mechanics, electronics, and software to create sophisticated automated systems.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Showcase -->
+    <section class="projects-showcase">
+        <div class="projects-container">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">
+                Click on any project to explore related tech products and components
+            </p>
+            
+            <div class="project-tabs">
+                <button class="project-tab active" data-category="all">All Projects</button>
+                <button class="project-tab" data-category="arduino">Arduino</button>
+                <button class="project-tab" data-category="raspberry">Raspberry Pi</button>
+                <button class="project-tab" data-category="coding">Coding</button>
+                <button class="project-tab" data-category="mechatronics">Mechatronics</button>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-card" data-category="arduino">
+                    <img src="https://images.pexels.com/photos/256219/pexels-photo-256219.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Autonomous Rover" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">Autonomous Rover</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag">Arduino</span>
+                            <span class="tech-tag">Sensors</span>
+                            <span class="tech-tag">Navigation</span>
+                        </div>
+                        <p class="project-description">
+                            A fully autonomous rover capable of navigating complex environments using ultrasonic sensors, GPS, and computer vision for object detection and avoidance.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-category="raspberry">
+                    <img src="https://images.pexels.com/photos/355948/pexels-photo-355948.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Smart Home Hub" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">Smart Home Hub</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag">Raspberry Pi</span>
+                            <span class="tech-tag">IoT</span>
+                            <span class="tech-tag">Home Automation</span>
+                        </div>
+                        <p class="project-description">
+                            A centralized home automation system that controls lighting, temperature, security, and entertainment devices through a custom web interface and voice commands.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-category="coding">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="ML Object Recognition" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">ML Object Recognition</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">TensorFlow</span>
+                            <span class="tech-tag">Computer Vision</span>
+                        </div>
+                        <p class="project-description">
+                            A machine learning system that can identify and classify objects in real-time using a custom-trained neural network with over 95% accuracy across 50 object categories.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-category="mechatronics">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Robotic Arm" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">6-Axis Robotic Arm</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag">Mechatronics</span>
+                            <span class="tech-tag">Servo Motors</span>
+                            <span class="tech-tag">Precision Control</span>
+                        </div>
+                        <p class="project-description">
+                            A high-precision robotic arm with six degrees of freedom, capable of performing complex manipulation tasks with sub-millimeter accuracy for industrial applications.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-category="arduino">
+                    <img src="https://images.unsplash.com/photo-1563297007-0686b7003af7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2076&q=80" alt="Weather Station" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">IoT Weather Station</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag">Arduino</span>
+                            <span class="tech-tag">Sensors</span>
+                            <span class="tech-tag">Data Logging</span>
+                        </div>
+                        <p class="project-description">
+                            A network of weather monitoring stations that collect and transmit temperature, humidity, pressure, and rainfall data to a central server for analysis and visualization.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-category="coding">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80" alt="Path Planning" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">Autonomous Path Planning</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag">Algorithms</span>
+                            <span class="tech-tag">ROS</span>
+                            <span class="tech-tag">Navigation</span>
+                        </div>
+                        <p class="project-description">
+                            Advanced path planning algorithms that enable robots to navigate complex environments while avoiding obstacles and optimizing for time and energy efficiency.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Products Modal -->
+    <div class="tech-products-modal" id="techProductsModal">
+        <button class="modal-close" id="modalClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Tech Products</h2>
+                <p class="modal-subtitle" id="modalSubtitle">Explore components and products for this category</p>
+            </div>
+            <div class="tech-products-grid" id="techProductsGrid">
+                <!-- Products will be loaded here -->
+            </div>
+            <div class="modal-loading" id="modalLoading">
+                <div class="modal-spinner"></div>
+                <p style="color: white;">Loading more products...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Infinite Scroll Section -->
+    <section class="infinite-scroll-section">
+        <div class="infinite-container">
+            <h2 class="section-title">More Projects</h2>
+            <p class="section-subtitle">
+                Discover additional projects as you scroll down
+            </p>
+            
+            <div class="infinite-grid" id="infiniteGrid">
+                <!-- Content will be loaded here dynamically -->
+            </div>
+            
+            <div class="loading-indicator" id="loadingIndicator">
+                <div class="loading-spinner"></div>
+                <p>Loading more projects...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-content">
+            <h2 class="cta-title">Ready to Explore Our Technologies?</h2>
+            <p class="cta-text">
+                Dive deeper into our projects, access tutorials, and join our community of innovators working with Arduino, Raspberry Pi, and advanced mechatronics systems.
+            </p>
+            <a href="index.html" class="btn btn-light">Back to Home</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Nova Labs</h3>
+                <p style="color: white; line-height: 1.6;">
+                    Building the future of robotics through innovation, education, and community collaboration.
+                </p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="technologies.html">Technologies</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#members">Members</a></li>
+                    <li><a href="#programmes">Programmes</a></li>
+                    <li><a href="#policy">Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Project Gallery</a></li>
+                    <li><a href="#">Community Forum</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Account</h3>
+                <ul class="footer-links">
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="signup.html">Sign Up</a></li>
+                    <li><a href="#">My Projects</a></li>
+                    <li><a href="#">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Nova Labs. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tech Products Database by Category
+        const techProductsDatabase = {
+            arduino: [
+                {
+                    name: "Arduino Uno R3",
+                    image: "https://images.unsplash.com/photo-1553406830-ef2513450d76?w=600&h=400&fit=crop",
+                    description: "The classic Arduino board with ATmega328P microcontroller, perfect for beginners and prototyping.",
+                    specs: ["16MHz", "32KB Flash", "20 I/O Pins"]
+                },
+                {
+                    name: "Arduino Mega 2560",
+                    image: "https://images.unsplash.com/photo-1608564697071-ddf911d81370?w=600&h=400&fit=crop",
+                    description: "High-performance board with 54 I/O pins for complex projects requiring more connections.",
+                    specs: ["16MHz", "256KB Flash", "54 I/O Pins"]
+                },
+                {
+                    name: "Ultrasonic Sensor HC-SR04",
+                    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop",
+                    description: "Distance measuring sensor using ultrasonic waves, range up to 4 meters.",
+                    specs: ["2cm-400cm", "5V", "15mA"]
+                },
+                {
+                    name: "Servo Motor SG90",
+                    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop",
+                    description: "Micro servo motor for precise angular control in robotics projects.",
+                    specs: ["180°", "4.8-6V", "Torque 2.5kg·cm"]
+                },
+                {
+                    name: "Arduino Nano",
+                    image: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600&h=400&fit=crop",
+                    description: "Compact Arduino board ideal for space-constrained projects and wearables.",
+                    specs: ["16MHz", "32KB Flash", "Mini USB"]
+                },
+                {
+                    name: "DHT22 Temperature Sensor",
+                    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=400&fit=crop",
+                    description: "High-precision digital temperature and humidity sensor for environmental monitoring.",
+                    specs: ["±0.5°C", "0-100% RH", "Digital Output"]
+                },
+                {
+                    name: "L298N Motor Driver",
+                    image: "https://images.unsplash.com/photo-1581092918484-8313e7ebf1ca?w=600&h=400&fit=crop",
+                    description: "Dual H-Bridge motor driver for controlling DC motors and stepper motors.",
+                    specs: ["2A per channel", "5-35V", "PWM Control"]
+                },
+                {
+                    name: "MPU6050 IMU Sensor",
+                    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop",
+                    description: "6-axis gyroscope and accelerometer for motion tracking and stabilization.",
+                    specs: ["3-axis Gyro", "3-axis Accel", "I2C Interface"]
+                },
+                {
+                    name: "OLED Display 0.96\"",
+                    image: "https://images.unsplash.com/photo-1558618666-fcd25856cd63?w=600&h=400&fit=crop",
+                    description: "Small OLED display for showing data and graphics in Arduino projects.",
+                    specs: ["128x64", "I2C/SPI", "Low Power"]
+                },
+                {
+                    name: "Arduino Pro Mini",
+                    image: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600&h=400&fit=crop",
+                    description: "Ultra-compact Arduino board for permanent installations and minimal size requirements.",
+                    specs: ["16MHz", "32KB", "Low Cost"]
+                }
+            ],
+            raspberry: [
+                {
+                    name: "Raspberry Pi 4 Model B",
+                    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&h=400&fit=crop",
+                    description: "Latest Raspberry Pi with quad-core processor and up to 8GB RAM for demanding applications.",
+                    specs: ["1.5GHz Quad-core", "8GB RAM", "Dual 4K Display"]
+                },
+                {
+                    name: "Raspberry Pi Camera V2",
+                    image: "https://images.unsplash.com/photo-1606492540989-0e28207c8e4b?w=600&h=400&fit=crop",
+                    description: "8MP camera module for computer vision and photography projects.",
+                    specs: ["8MP", "1080p30", "Fixed Focus"]
+                },
+                {
+                    name: "Pi NoIR Camera",
+                    image: "https://images.unsplash.com/photo-1606492540989-0e28207c8e4b?w=600&h=400&fit=crop",
+                    description: "Night vision camera module without infrared filter for low-light applications.",
+                    specs: ["8MP", "No IR Filter", "Night Vision"]
+                },
+                {
+                    name: "Raspberry Pi Zero W",
+                    image: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600&h=400&fit=crop",
+                    description: "Ultra-small Pi with WiFi and Bluetooth for IoT and embedded projects.",
+                    specs: ["1GHz", "512MB", "WiFi+BT"]
+                },
+                {
+                    name: "Touch Screen 7\"",
+                    image: "https://images.unsplash.com/photo-1558618666-fcd25856cd63?w=600&h=400&fit=crop",
+                    description: "Official Raspberry Pi touchscreen display for interactive applications.",
+                    specs: ["800x480", "Capacitive Touch", "DSI Port"]
+                },
+                {
+                    name: "Sense HAT",
+                    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop",
+                    description: "Multi-sensor board with gyroscope, accelerometer, and LED matrix.",
+                    specs: ["8x8 LED", "9-axis IMU", "Temp/Humidity"]
+                },
+                {
+                    name: "Pi Relay Board",
+                    image: "https://images.unsplash.com/photo-1581092918484-8313e7ebf1ca?w=600&h=400&fit=crop",
+                    description: "4-channel relay module for controlling high-power devices with Raspberry Pi.",
+                    specs: ["4 Relays", "10A", "Optoisolated"]
+                },
+                {
+                    name: "PoE HAT",
+                    image: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600&h=400&fit=crop",
+                    description: "Power over Ethernet HAT for powering Pi through network cable.",
+                    specs: ["802.3af PoE", "Cooling Fan", "Easy Setup"]
+                },
+                {
+                    name: "Raspberry Pi Pico",
+                    image: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600&h=400&fit=crop",
+                    description: "Microcontroller board based on RP2040 chip for embedded applications.",
+                    specs: ["133MHz", "264KB RAM", "Low Cost"]
+                },
+                {
+                    name: "Storage Expansion",
+                    image: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=600&h=400&fit=crop",
+                    description: "High-speed microSD card optimized for Raspberry Pi applications.",
+                    specs: ["64GB", "Class 10", "A2 Rated"]
+                }
+            ],
+            coding: [
+                {
+                    name: "Python Development Kit",
+                    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&h=400&fit=crop",
+                    description: "Complete Python environment for robotics and machine learning development.",
+                    specs: ["Python 3.10", "NumPy", "TensorFlow"]
+                },
+                {
+                    name: "ROS Development Suite",
+                    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&h=400&fit=crop",
+                    description: "Robot Operating System framework for building robot applications.",
+                    specs: ["ROS2 Humble", "Gazebo Sim", "RViz"]
+                },
+                {
+                    name: "OpenCV Library",
+                    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
+                    description: "Computer vision library for image processing and object detection.",
+                    specs: ["OpenCV 4.8", "CUDA Support", "DNN Module"]
+                },
+                {
+                    name: "TensorFlow Framework",
+                    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&h=400&fit=crop",
+                    description: "Machine learning framework for training and deploying neural networks.",
+                    specs: ["TF 2.13", "Keras API", "GPU Accelerated"]
+                },
+                {
+                    name: "Arduino IDE",
+                    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop",
+                    description: "Integrated development environment for programming Arduino boards.",
+                    specs: ["Version 2.0", "Library Manager", "Serial Monitor"]
+                },
+                {
+                    name: "Visual Studio Code",
+                    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop",
+                    description: "Powerful code editor with extensions for robotics development.",
+                    specs: ["PlatformIO", "Git Integration", "IntelliSense"]
+                },
+                {
+                    name: "MATLAB Toolbox",
+                    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+                    description: "Simulation and analysis tools for control systems and algorithms.",
+                    specs: ["Simulink", "Control Systems", "Computer Vision"]
+                },
+                {
+                    name: "Node-RED",
+                    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=400&fit=crop",
+                    description: "Flow-based programming tool for IoT and automation workflows.",
+                    specs: ["Visual Editor", "MQTT", "REST APIs"]
+                },
+                {
+                    name: "Git Version Control",
+                    image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=600&h=400&fit=crop",
+                    description: "Version control system for managing code and collaboration.",
+                    specs: ["Git 2.40", "GitHub", "Branching"]
+                },
+                {
+                    name: "Docker Containers",
+                    image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=600&h=400&fit=crop",
+                    description: "Containerization platform for deploying robotic applications.",
+                    specs: ["Docker 24.0", "Compose", "Swarm"]
+                }
+            ],
+            mechatronics: [
+                {
+                    name: "Stepper Motor NEMA 17",
+                    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop",
+                    description: "High-torque stepper motor for precision positioning in CNC and 3D printers.",
+                    specs: ["1.8° Step", "1.7A", "59Ncm Torque"]
+                },
+                {
+                    name: "Timing Belt & Pulleys",
+                    image: "https://images.unsplash.com/photo-1565030356441-81b29136f39e?w=600&h=400&fit=crop",
+                    description: "GT2 timing belt system for precise linear motion transmission.",
+                    specs: ["GT2 2mm Pitch", "6mm Width", "20T Pulleys"]
+                },
+                {
+                    name: "Linear Rail System",
+                    image: "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?w=600&h=400&fit=crop",
+                    description: "High-precision linear guide rails for smooth and accurate motion.",
+                    specs: ["MGN12H", "300mm Length", "Low Friction"]
+                },
+                {
+                    name: "Ball Screw Assembly",
+                    image: "https://images.unsplash.com/photo-1565030356441-81b29136f39e?w=600&h=400&fit=crop",
+                    description: "Precision ball screw for converting rotary to linear motion.",
+                    specs: ["16mm Diameter", "5mm Lead", "High Accuracy"]
+                },
+                {
+                    name: "Aluminum Extrusion",
+                    image: "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?w=600&h=400&fit=crop",
+                    description: "T-slot aluminum profiles for building robust mechanical frames.",
+                    specs: ["2020/4040", "6063-T5", "Anodized"]
+                },
+                {
+                    name: "Encoder Rotary",
+                    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop",
+                    description: "High-resolution rotary encoder for position and speed feedback.",
+                    specs: ["600 PPR", "Quadrature Output", "5-24V"]
+                },
+                {
+                    name: "Pneumatic Cylinder",
+                    image: "https://images.unsplash.com/photo-1581092918484-8313e7ebf1ca?w=600&h=400&fit=crop",
+                    description: "Double-acting pneumatic actuator for automation systems.",
+                    specs: ["32mm Bore", "100mm Stroke", "10 Bar"]
+                },
+                {
+                    name: "Servo Controller Board",
+                    image: "https://images.unsplash.com/photo-1608564697071-ddf911d81370?w=600&h=400&fit=crop",
+                    description: "16-channel servo motor controller with I2C interface.",
+                    specs: ["PCA9685", "12-bit PWM", "16 Channels"]
+                },
+                {
+                    name: "Coupling Flexible",
+                    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop",
+                    description: "Flexible shaft coupling for connecting motors to mechanisms.",
+                    specs: ["5mm-8mm", "Aluminum", "Shock Absorption"]
+                },
+                {
+                    name: "Limit Switch Kit",
+                    image: "https://images.unsplash.com/photo-1581092918484-8313e7ebf1ca?w=600&h=400&fit=crop",
+                    description: "Mechanical limit switches for end-stop detection.",
+                    specs: ["Microswitch", "10A Rating", "Adjustable Arm"]
+                }
+            ]
+        };
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.padding = '0.5rem 0';
+                nav.style.background = 'rgba(15, 23, 42, 0.95)';
+            } else {
+                nav.style.padding = '1rem 0';
+                nav.style.background = 'rgba(15, 23, 42, 0.9)';
+            }
+        });
+
+        // Project tabs functionality
+        const projectTabs = document.querySelectorAll('.project-tab');
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        projectTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                projectTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                const category = tab.getAttribute('data-category');
+                
+                projectCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Tech Products Modal Functionality
+        const techProductsModal = document.getElementById('techProductsModal');
+        const modalClose = document.getElementById('modalClose');
+        const techProductsGrid = document.getElementById('techProductsGrid');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSubtitle = document.getElementById('modalSubtitle');
+        const modalLoading = document.getElementById('modalLoading');
+
+        let currentCategory = '';
+        let modalPage = 0;
+        let isModalLoading = false;
+
+        // Category titles and subtitles
+        const categoryInfo = {
+            arduino: {
+                title: "Arduino Components & Boards",
+                subtitle: "Microcontrollers, sensors, and modules for Arduino projects"
+            },
+            raspberry: {
+                title: "Raspberry Pi Products",
+                subtitle: "Single-board computers, cameras, and accessories"
+            },
+            coding: {
+                title: "Development Tools & Software",
+                subtitle: "IDEs, frameworks, and libraries for robotics programming"
+            },
+            mechatronics: {
+                title: "Mechanical & Electronic Components",
+                subtitle: "Motors, actuators, and precision mechanical parts"
+            }
+        };
+
+        // Create product card HTML
+        function createProductCard(product, index) {
+            const card = document.createElement('div');
+            card.className = 'tech-product-card';
+            card.style.animationDelay = `${index * 0.05}s`;
+            
+            card.innerHTML = `
+                <img src="${product.image}" alt="${product.name}" class="tech-product-image" loading="lazy">
+                <div class="tech-product-info">
+                    <h3 class="tech-product-name">${product.name}</h3>
+                    <p class="tech-product-description">${product.description}</p>
+                    <div class="tech-product-specs">
+                        ${product.specs.map(spec => `<span class="spec-badge">${spec}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Load products for category
+        function loadProducts(category, append = false) {
+            if (!append) {
+                techProductsGrid.innerHTML = '';
+                modalPage = 0;
+            }
+
+            const products = techProductsDatabase[category] || [];
+            const startIndex = modalPage * 6;
+            const endIndex = Math.min(startIndex + 6, products.length);
+            const productsToShow = products.slice(startIndex, endIndex);
+
+            productsToShow.forEach((product, index) => {
+                const card = createProductCard(product, index);
+                techProductsGrid.appendChild(card);
+            });
+
+            modalPage++;
+
+            // Check if there are more products to load
+            if (endIndex >= products.length) {
+                modalLoading.innerHTML = '<p style="color: white;">All products loaded! 🎉</p>';
+                modalLoading.style.display = 'block';
+            }
+        }
+
+        // Open modal for category
+        function openProductsModal(category) {
+            currentCategory = category;
+            const info = categoryInfo[category];
+            
+            modalTitle.textContent = info.title;
+            modalSubtitle.textContent = info.subtitle;
+            
+            loadProducts(category);
+            techProductsModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal
+        function closeModal() {
+            techProductsModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            modalLoading.style.display = 'none';
+            modalLoading.innerHTML = `
+                <div class="modal-spinner"></div>
+                <p style="color: white;">Loading more products...</p>
+            `;
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        techProductsModal.addEventListener('click', (e) => {
+            if (e.target === techProductsModal) {
+                closeModal();
+            }
+        });
+
+        // Add click event to project cards
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const category = card.getAttribute('data-category');
+                openProductsModal(category);
+            });
+        });
+
+        // Modal infinite scroll
+        let modalScrollTimeout;
+        techProductsModal.addEventListener('scroll', () => {
+            clearTimeout(modalScrollTimeout);
+            modalScrollTimeout = setTimeout(() => {
+                const { scrollTop, scrollHeight, clientHeight } = techProductsModal;
+                
+                if (scrollTop + clientHeight >= scrollHeight - 500 && !isModalLoading) {
+                    const products = techProductsDatabase[currentCategory] || [];
+                    const hasMore = (modalPage * 6) < products.length;
+                    
+                    if (hasMore) {
+                        isModalLoading = true;
+                        modalLoading.style.display = 'block';
+                        
+                        setTimeout(() => {
+                            loadProducts(currentCategory, true);
+                            isModalLoading = false;
+                            modalLoading.style.display = 'none';
+                        }, 800);
+                    }
+                }
+            }, 100);
+        });
+
+        // Infinite scroll for main projects section
+        const infiniteGrid = document.getElementById('infiniteGrid');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        let isLoading = false;
+        let page = 0;
+        const projectsPerPage = 6;
+
+        // Extended project data with all images from earlier versions
+        const projectDatabase = [
+            {
+                title: "CNC Router Machine",
+                category: "mechatronics",
+                image: "https://images.pexels.com/photos/2588757/pexels-photo-2588757.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                description: "Computer-controlled cutting machine for precision woodworking and metalworking.",
+                tags: ["Mechatronics", "CNC", "Manufacturing"]
+            },
+            {
+                title: "Home Energy Monitor",
+                category: "raspberry",
+                image: "https://images.pexels.com/photos/356036/pexels-photo-356036.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                description: "Real-time energy consumption monitoring system with predictive analytics.",
+                tags: ["Raspberry Pi", "Energy", "Analytics"]
+            },
+            {
+                title: "Autonomous Rover",
+                category: "arduino",
+                image: "https://images.pexels.com/photos/256219/pexels-photo-256219.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                description: "A fully autonomous rover capable of navigating complex environments using ultrasonic sensors, GPS, and computer vision.",
+                tags: ["Arduino", "Sensors", "Navigation"]
+            },
+            {
+                title: "Smart Home Hub",
+                category: "raspberry",
+                image: "https://images.pexels.com/photos/355948/pexels-photo-355948.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                description: "A centralized home automation system that controls lighting, temperature, security, and entertainment devices.",
+                tags: ["Raspberry Pi", "IoT", "Home Automation"]
+            },
+            {
+                title: "Agricultural Drone System",
+                category: "arduino",
+                image: "https://images.unsplash.com/photo-1508444845599-5c89863b1c44?w=800&h=600&fit=crop",
+                description: "Autonomous drone system for precision agriculture with multispectral imaging and automated pesticide deployment.",
+                tags: ["Arduino", "Drones", "Agriculture"]
+            },
+            {
+                title: "AI-Powered Security System",
+                category: "raspberry",
+                image: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&h=600&fit=crop",
+                description: "Intelligent security system with facial recognition, motion tracking, and automated alert system.",
+                tags: ["Raspberry Pi", "AI", "Security"]
+            },
+            {
+                title: "Automated Greenhouse",
+                category: "arduino",
+                image: "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=800&h=600&fit=crop",
+                description: "Fully automated greenhouse with climate control, irrigation systems, and plant health monitoring.",
+                tags: ["Arduino", "IoT", "Agriculture"]
+            },
+            {
+                title: "Smart Traffic Management",
+                category: "coding",
+                image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop",
+                description: "AI-based traffic flow optimization system using computer vision and predictive algorithms.",
+                tags: ["Python", "AI", "Urban Planning"]
+            },
+            {
+                title: "3D Printing Farm",
+                category: "mechatronics",
+                image: "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?w=800&h=600&fit=crop",
+                description: "Automated 3D printing farm with robotic part removal and quality control systems.",
+                tags: ["Mechatronics", "3D Printing", "Automation"]
+            },
+            {
+                title: "Underwater ROV",
+                category: "arduino",
+                image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop",
+                description: "Remotely operated vehicle for underwater exploration with HD cameras and sensor arrays.",
+                tags: ["Arduino", "ROV", "Marine"]
+            },
+            {
+                title: "Smart Warehouse System",
+                category: "raspberry",
+                image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=600&fit=crop",
+                description: "Automated warehouse management with inventory tracking and robotic retrieval systems.",
+                tags: ["Raspberry Pi", "Logistics", "Automation"]
+            },
+            {
+                title: "Medical Diagnostic Assistant",
+                category: "coding",
+                image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",
+                description: "AI-powered diagnostic system for medical imaging analysis and patient data processing.",
+                tags: ["Python", "AI", "Healthcare"]
+            },
+            {
+                title: "Solar Panel Tracker",
+                category: "arduino",
+                image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&h=600&fit=crop",
+                description: "Dual-axis solar panel tracking system that follows the sun for maximum energy efficiency.",
+                tags: ["Arduino", "Solar", "Renewable Energy"]
+            },
+            {
+                title: "Autonomous Lawn Mower",
+                category: "raspberry",
+                image: "https://images.unsplash.com/photo-1595341888016-a392ef81b7de?w=800&h=600&fit=crop",
+                description: "Smart lawn mower that navigates yards autonomously with obstacle avoidance and boundary detection.",
+                tags: ["Raspberry Pi", "Robotics", "Home Automation"]
+            },
+            {
+                title: "Gesture Control System",
+                category: "coding",
+                image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
+                description: "Hand gesture recognition system for controlling devices without physical contact.",
+                tags: ["Python", "Computer Vision", "Human-Computer Interaction"]
+            },
+            {
+                title: "Autonomous Delivery Robot",
+                category: "mechatronics",
+                image: "https://images.pexels.com/photos/256219/pexels-photo-256219.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                description: "Last-mile delivery robot with obstacle avoidance and secure package handling.",
+                tags: ["Mechatronics", "Delivery", "Autonomous"]
+            },
+            {
+                title: "Industrial Quality Control",
+                category: "coding",
+                image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=800&h=600&fit=crop",
+                description: "Computer vision system for automated quality inspection in manufacturing.",
+                tags: ["Python", "Computer Vision", "Manufacturing"]
+            }
+        ];
+
+        // Create project card HTML
+        function createProjectCard(project, index) {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.setAttribute('data-category', project.category);
+            card.style.animationDelay = `${index * 0.1}s`;
+            
+            card.innerHTML = `
+                <img src="${project.image}" alt="${project.title}" class="project-image">
+                <div class="project-content">
+                    <h3 class="project-title">${project.title}</h3>
+                    <div class="project-tech">
+                        ${project.tags.map(tag => `<span class="tech-tag">${tag}</span>`).join('')}
+                    </div>
+                    <p class="project-description">
+                        ${project.description}
+                    </p>
+                </div>
+            `;
+            
+            // Add click event to new cards
+            card.addEventListener('click', () => {
+                openProductsModal(project.category);
+            });
+            
+            return card;
+        }
+
+        // Load more projects
+        function loadMoreProjects() {
+            if (isLoading) return;
+            
+            isLoading = true;
+            loadingIndicator.style.display = 'block';
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                const startIndex = page * projectsPerPage;
+                const endIndex = Math.min(startIndex + projectsPerPage, projectDatabase.length);
+                const projectsToAdd = projectDatabase.slice(startIndex, endIndex);
+                
+                if (projectsToAdd.length === 0) {
+                    // No more projects to load
+                    loadingIndicator.innerHTML = '<p>All projects loaded! 🎉</p>';
+                    return;
+                }
+                
+                projectsToAdd.forEach((project, index) => {
+                    const projectCard = createProjectCard(project, index);
+                    infiniteGrid.appendChild(projectCard);
+                });
+                
+                page++;
+                isLoading = false;
+                loadingIndicator.style.display = 'none';
+            }, 1000);
+        }
+
+        // Initial load
+        loadMoreProjects();
+
+        // Infinite scroll event listener
+        window.addEventListener('scroll', () => {
+            const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+            
+            if (scrollTop + clientHeight >= scrollHeight - 500 && !isLoading) {
+                loadMoreProjects();
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

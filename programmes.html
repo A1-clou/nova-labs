@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Labs | Programmes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1e3a8a;
+            --primary-dark: #1e40af;
+            --secondary: #3730a3;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo-dot {
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-auth {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-left: 1rem;
+            padding-left: 1rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-auth a {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-auth a.signup {
+            background: white;
+            color: var(--primary-dark);
+        }
+
+        .nav-auth a.signup:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        .nav-auth a.login {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .nav-auth a.login:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 2rem;
+            margin-top: 70px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(15, 23, 42, 0.4), rgba(30, 64, 175, 0.3)), 
+                        url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            z-index: 1;
+        }
+
+        .welcome-text {
+            font-size: 1.1rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .nova-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            color: white;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+        }
+
+        .labs-subtitle {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: white;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-tagline {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            font-weight: 500;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary-dark);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: #f1f5f9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Programme Categories */
+        .programme-categories {
+            padding: 4rem 2rem;
+            background: var(--dark);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: white;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+            font-weight: 500;
+        }
+
+        .categories-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .category-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .category-description {
+            color: white;
+            line-height: 1.6;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Course Details Section */
+        .course-details {
+            padding: 4rem 2rem;
+            background: rgba(15, 23, 42, 0.7);
+        }
+
+        .course-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .course-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .course-tab {
+            padding: 1rem 1.5rem;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-weight: 600;
+        }
+
+        .course-tab.active {
+            background: white;
+            color: var(--primary-dark);
+        }
+
+        .course-content {
+            display: none;
+        }
+
+        .course-content.active {
+            display: block;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .course-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .course-subtitle {
+            font-size: 1.1rem;
+            color: white;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .course-structure {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .module-card {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .module-number {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .module-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .module-description {
+            color: white;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .module-topics {
+            list-style: none;
+        }
+
+        .module-topics li {
+            margin-bottom: 0.5rem;
+            color: white;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .module-topics li:before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            color: white;
+            line-height: 1.6;
+        }
+
+        .btn-light {
+            background: white;
+            color: var(--primary-dark);
+            border: none;
+        }
+
+        .btn-light:hover {
+            background: #f1f5f9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0f1c;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: white;
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            color: white;
+        }
+
+        /* Circuit Dots */
+        .circuit-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: white;
+            opacity: 0.3;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .dot:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .dot:nth-child(2) {
+            top: 60%;
+            left: 85%;
+            animation-delay: 1s;
+            background: white;
+        }
+
+        .dot:nth-child(3) {
+            top: 80%;
+            left: 15%;
+            animation-delay: 2s;
+            background: white;
+        }
+
+        .dot:nth-child(4) {
+            top: 40%;
+            left: 90%;
+            animation-delay: 3s;
+            background: white;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-20px) scale(1.1);
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .nav-auth {
+                margin-left: 0.5rem;
+                padding-left: 0.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(15, 23, 42, 0.95);
+                flex-direction: column;
+                padding: 1rem 0;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-auth {
+                border-left: none;
+                margin-left: 0;
+                padding-left: 0;
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+            }
+
+            .nav-auth a {
+                width: 80%;
+                margin: 0 auto;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nova-title {
+                font-size: 2.5rem;
+            }
+
+            .labs-subtitle {
+                font-size: 1.3rem;
+            }
+
+            .hero-tagline {
+                font-size: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .course-tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-dot"></div>
+                Nova Labs
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="technologies.html">Our Technologies</a>
+                <a href="#programmes" class="active">Programmes</a>
+                <a href="#projects">Projects</a>
+                <a href="#members">Members</a>
+                <a href="#policy">Policy</a>
+                <div class="nav-auth">
+                    <a href="login.html" class="login">Login</a>
+                    <a href="signup.html" class="signup">Sign Up</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="circuit-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="hero-content">
+            <h4 class="welcome-text">Our Learning Programmes</h4>
+            <h1 class="nova-title">EDUCATION</h1>
+            <h2 class="labs-subtitle">AT NOVA LABS</h2>
+            <p class="hero-tagline">
+                Master cutting-edge technologies through our structured courses designed 
+                for beginners and advanced learners. Build real-world projects and join 
+                our community of innovators.
+            </p>
+            <div class="cta-buttons">
+                <a href="#courses" class="btn btn-primary">Explore Courses</a>
+                <button class="btn btn-secondary">Download Syllabus</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programme Categories -->
+    <section class="programme-categories" id="courses">
+        <h2 class="section-title">Our Programme Categories</h2>
+        <p class="section-subtitle">Choose from our comprehensive range of technology courses</p>
+        
+        <div class="categories-grid">
+            <div class="category-card" data-course="coding">
+                <div class="category-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="category-title">Coding & Programming</h3>
+                <p class="category-description">
+                    Learn programming fundamentals and advanced concepts with Python, C++, 
+                    and JavaScript. Build applications, algorithms, and problem-solving skills.
+                </p>
+                <button class="btn btn-secondary">View Course</button>
+            </div>
+            <div class="category-card" data-course="robotics">
+                <div class="category-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3 class="category-title">Robotics</h3>
+                <p class="category-description">
+                    Design, build, and program autonomous robots. Learn about sensors, 
+                    actuators, control systems, and artificial intelligence for robotics.
+                </p>
+                <button class="btn btn-secondary">View Course</button>
+            </div>
+            <div class="category-card" data-course="mechatronics">
+                <div class="category-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3 class="category-title">Mechatronics</h3>
+                <p class="category-description">
+                    Integrate mechanical engineering, electronics, and computer science 
+                    to create smart systems and automated solutions.
+                </p>
+                <button class="btn btn-secondary">View Course</button>
+            </div>
+            <div class="category-card" data-course="arduino">
+                <div class="category-icon">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h3 class="category-title">Arduino</h3>
+                <p class="category-description">
+                    Master microcontroller programming with Arduino. Create interactive 
+                    projects, IoT devices, and embedded systems from beginner to advanced levels.
+                </p>
+                <button class="btn btn-secondary">View Course</button>
+            </div>
+            <div class="category-card" data-course="raspberry">
+                <div class="category-icon">
+                    <i class="fas fa-desktop"></i>
+                </div>
+                <h3 class="category-title">Raspberry Pi</h3>
+                <p class="category-description">
+                    Explore the capabilities of Raspberry Pi single-board computers. 
+                    Build media centers, servers, IoT hubs, and custom computing solutions.
+                </p>
+                <button class="btn btn-secondary">View Course</button>
+            </div>
+            <div class="category-card" data-course="stm32">
+                <div class="category-icon">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h3 class="category-title">STM32</h3>
+                <p class="category-description">
+                    Dive into professional embedded systems development with STM32 
+                    microcontrollers. Learn ARM architecture and real-time applications.
+                </p>
+                <button class="btn btn-secondary">View Course</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Details Section -->
+    <section class="course-details">
+        <div class="course-container">
+            <h2 class="section-title">Course Details</h2>
+            <p class="section-subtitle">Explore our comprehensive curriculum for each technology area</p>
+            
+            <div class="course-tabs">
+                <div class="course-tab active" data-target="coding">Coding</div>
+                <div class="course-tab" data-target="robotics">Robotics</div>
+                <div class="course-tab" data-target="mechatronics">Mechatronics</div>
+                <div class="course-tab" data-target="arduino">Arduino</div>
+                <div class="course-tab" data-target="raspberry">Raspberry Pi</div>
+                <div class="course-tab" data-target="stm32">STM32</div>
+            </div>
+            
+            <!-- Coding Course -->
+            <div class="course-content active" id="coding">
+                <div class="course-header">
+                    <h3 class="course-title">Coding & Programming</h3>
+                    <p class="course-subtitle">
+                        Master programming fundamentals and advanced concepts with Python, C++, and JavaScript. 
+                        Build applications, algorithms, and problem-solving skills for real-world challenges.
+                    </p>
+                </div>
+                
+                <div class="course-structure">
+                    <div class="module-card">
+                        <div class="module-number">Module 1</div>
+                        <h4 class="module-title">Programming Fundamentals</h4>
+                        <p class="module-description">
+                            Learn the core concepts of programming including variables, data types, 
+                            control structures, and functions.
+                        </p>
+                        <ul class="module-topics">
+                            <li>Introduction to Programming</li>
+                            <li>Variables and Data Types</li>
+                            <li>Control Structures (if/else, loops)</li>
+                            <li>Functions and Modular Programming</li>
+                            <li>Basic Algorithms and Problem Solving</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">Module 2</div>
+                        <h4 class="module-title">Object-Oriented Programming</h4>
+                        <p class="module-description">
+                            Dive into OOP concepts with classes, objects, inheritance, and polymorphism.
+                        </p>
+                        <ul class="module-topics">
+                            <li>Classes and Objects</li>
+                            <li>Inheritance and Polymorphism</li>
+                            <li>Encapsulation and Abstraction</li>
+                            <li>Design Patterns</li>
+                            <li>Advanced OOP Concepts</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">Module 3</div>
+                        <h4 class="module-title">Data Structures & Algorithms</h4>
+                        <p class="module-description">
+                            Explore essential data structures and algorithms for efficient problem solving.
+                        </p>
+                        <ul class="module-topics">
+                            <li>Arrays, Lists, and Stacks</li>
+                            <li>Queues and Linked Lists</li>
+                            <li>Trees and Graphs</li>
+                            <li>Sorting and Searching Algorithms</li>
+                            <li>Algorithm Complexity Analysis</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">Module 4</div>
+                        <h4 class="module-title">Web Development</h4>
+                        <p class="module-description">
+                            Build interactive web applications with HTML, CSS, JavaScript, and frameworks.
+                        </p>
+                        <ul class="module-topics">
+                            <li>HTML5 and CSS3</li>
+                            <li>JavaScript Fundamentals</li>
+                            <li>Frontend Frameworks (React/Vue)</li>
+                            <li>Backend Development (Node.js)</li>
+                            <li>Database Integration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Robotics Course -->
+            <div class="course-content" id="robotics">
+                <div class="course-header">
+                    <h3 class="course-title">Robotics</h3>
+                    <p class="course-subtitle">
+                        Design, build, and program autonomous robots. Learn about sensors, actuators, 
+                        control systems, and artificial intelligence for robotics applications.
+                    </p>
+                </div>
+                
+                <div class="course-structure">
+                    <div class="module-card">
+                        <div class="module-number">Module 1</div>
+                        <h4 class="module-title">Introduction to Robotics</h4>
+                        <p class="module-description">
+                            Understand the fundamentals of robotics, including history, types of robots, 
+                            and basic components.
+                        </p>
+                        <ul class="module-topics">
+                            <li>History and Evolution of Robotics</li>
+                            <li>Types of Robots and Applications</li>
+                            <li>Robot Components and Architecture</li>
+                            <li>Safety in Robotics</li>
+                            <li>Introduction to Robot Kinematics</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">Module 2</div>
+                        <h4 class="module-title">Sensors and Actuators</h4>
+                        <p class="module-description">
+                            Learn about various sensors and actuators used in robotics and how to interface them.
+                        </p>
+                        <ul class="module-topics">
+                            <li>Types of Sensors (Proximity, Vision, etc.)</li>
+                            <li>Motor Control and Actuators</li>
+                            <li>Sensor Data Processing</li>
+                            <li>Interfacing Sensors with Microcontrollers</li>
+                            <li>Calibration and Testing</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">Module 3</div>
+                        <h4 class="module-title">Robot Programming</h4>
+                        <p class="module-description">
+                            Program robots for various tasks including navigation, manipulation, and perception.
+                        </p>
+                        <ul class="module-topics">
+                            <li>Robot Operating System (ROS)</li>
+                            <li>Motion Planning and Control</li>
+                            <li>Computer Vision for Robotics</li>
+                            <li>Localization and Mapping</li>
+                            <li>Robot Simulation Environments</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">Module 4</div>
+                        <h4 class="module-title">Advanced Robotics</h4>
+                        <p class="module-description">
+                            Explore advanced topics in robotics including AI, machine learning, and autonomous systems.
+                        </p>
+                        <ul class="module-topics">
+                            <li>Artificial Intelligence in Robotics</li>
+                            <li>Machine Learning for Robot Control</li>
+                            <li>Autonomous Navigation</li>
+                            <li>Multi-Robot Systems</li>
+                            <li>Human-Robot Interaction</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mechatronics Course -->
+            <div class="course-content" id="mechatronics">
+                <div class="course-header">
+                    <h3 class="course-title">Mechatronics</h3>
+                    <p class="course-subtitle">
+                        Integrate mechanical engineering, electronics, and computer science to create 
+                        smart systems and automated solutions for real-world applications.
+                    </p>
+                </div>
+                
+                <div class="course-structure">
+                    <div class="module-card">
+                        <div class="module-number">Module 1</div>
+                        <h4 class="module-title">Fundamentals of Mechatronics</h4>
+                        <p class="module-description">
+                            Introduction to the interdisciplinary field of mechatronics and its core components.
+                        </p>
+                        <ul class="module-topics">
+                            <li>Introduction to Mechatronic Systems</li>
+                            <li>Mechanical Components and Mechanisms</li>
+                            <li>Electrical and Electronic Fundamentals</li>
+                            <li>Digital Logic and Microcontrollers</li>
+                            <li>System Integration Principles</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">Module 2</div>
+                        <h4 class="module-title">Control Systems</h4>
+                        <p class="module-description">
+                            Learn about control theory and its application in mechatronic systems.
+                        </p>
+                        <ul class="module-topics">
+                            <li>Introduction to Control Systems</li>
+                            <li>PID Controllers</li>
+                            <li>System Modeling and Simulation</li>
+                            <li>Digital Control Systems</li>
+                            <li>Real-time Control Implementation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">Module 3</div>
+                        <h4 class="module-title">Sensors and Actuators in Mechatronics</h4>
+                        <p class="module-description">
+                            Explore various sensors and actuators used in mechatronic systems.
+                        </p>
+                        <ul class="module-topics">
+                            <li>Sensor Principles and Selection</li>
+                            <li>Actuator Types and Applications</li>
+                            <li>Signal Conditioning</li>
+                            <li>Motion Control Systems</li>
+                            <li>Hydraulic and Pneumatic Systems</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">Module 4</div>
+                        <h4 class="module-title">Mechatronic System Design</h4>
+                        <p class="module-description">
+                            Design and implement complete mechatronic systems for specific applications.
+                        </p>
+                        <ul class="module-topics">
+                            <li>System Design Methodology</li>
+                            <li>CAD and Modeling Tools</li>
+                            <li>Prototyping and Testing</li>
+                            <li>Case Studies in Mechatronics</li>
+                            <li>Project Management in Mechatronics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Arduino Course -->
+            <div class="course-content" id="arduino">
+                <div class="course-header">
+                    <h3 class="course-title">Arduino Programming</h3>
+                    <p class="course-subtitle">
+                        Master microcontroller programming with Arduino. Create interactive projects, 
+                        IoT devices, and embedded systems from beginner to advanced levels.
+                    </p>
+                </div>
+                
+                <div class="course-structure">
+                    <div class="module-card">
+                        <div class="module-number">Module 1</div>
+                        <h4 class="module-title">Arduino Basics</h4>
+                        <p class="module-description">
+                            Get started with Arduino hardware and software, and create your first projects.
+                        </p>
+                        <ul class="module-topics">
+                            <li>Introduction to Arduino Platform</li>
+                            <li>Arduino IDE Setup and Configuration</li>
+                            <li>Basic Electronics for Arduino</li>
+                            <li>Digital and Analog I/O</li>
+                            <li>First Arduino Projects (LED Blink, etc.)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">Module 2</div>
+                        <h4 class="module-title">Sensors and Actuators with Arduino</h4>
+                        <p class="module-description">
+                            Learn to interface various sensors and actuators with Arduino boards.
+                        </p>
+                        <ul class="module-topics">
+                            <li>Working with Sensors (Temperature, Light, etc.)</li>
+                            <li>Motor Control with Arduino</li>
+                            <li>Display Interfaces (LCD, OLED)</li>
+                            <li>Wireless Communication (Bluetooth, WiFi)</li>
+                            <li>Data Logging and Storage</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">Module 3</div>
+                        <h4 class="module-title">Advanced Arduino Programming</h4>
+                        <p class="module-description">
+                            Explore advanced programming concepts and techniques for complex Arduino projects.
+                        </p>
+                        <ul class="module-topics">
+                            <li>Interrupts and Timers</li>
+                            <li>Power Management</li>
+                            <li>Memory Optimization</li>
+                            <li>Library Development</li>
+                            <li>Debugging and Troubleshooting</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">Module 4</div>
+                        <h4 class="module-title">Arduino IoT and Robotics</h4>
+                        <p class="module-description">
+                            Apply Arduino skills to build IoT devices and robotic systems.
+                        </p>
+                        <ul class="module-topics">
+                            <li>IoT Concepts and Protocols</li>
+                            <li>Cloud Integration with Arduino</li>
+                            <li>Home Automation Projects</li>
+                            <li>Building Simple Robots with Arduino</li>
+                            <li>Advanced Robotics Applications</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Raspberry Pi Course -->
+            <div class="course-content" id="raspberry">
+                <div class="course-header">
+                    <h3 class="course-title">Raspberry Pi</h3>
+                    <p class="course-subtitle">
+                        Explore the capabilities of Raspberry Pi single-board computers. Build media centers, 
+                        servers, IoT hubs, and custom computing solutions for various applications.
+                    </p>
+                </div>
+                
+                <div class="course-structure">
+                    <div class="module-card">
+                        <div class="module-number">Module 1</div>
+                        <h4 class="module-title">Getting Started with Raspberry Pi</h4>
+                        <p class="module-description">
+                            Set up your Raspberry Pi and learn the basics of the Linux operating system.
+                        </p>
+                        <ul class="module-topics">
+                            <li>Introduction to Raspberry Pi Models</li>
+                            <li>Operating System Installation</li>
+                            <li>Basic Linux Commands</li>
+                            <li>Remote Access (SSH, VNC)</li>
+                            <li>GPIO Pin Configuration</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">Module 2</div>
+                        <h4 class="module-title">Raspberry Pi Programming</h4>
+                        <p class="module-description">
+                            Program your Raspberry Pi using Python and other languages for various applications.
+                        </p>
+                        <ul class="module-topics">
+                            <li>Python Programming for Raspberry Pi</li>
+                            <li>GPIO Programming</li>
+                            <li>Interfacing with Sensors and Actuators</li>
+                            <li>Camera Module Programming</li>
+                            <li>Web Development with Raspberry Pi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">Module 3</div>
+                        <h4 class="module-title">Raspberry Pi Projects</h4>
+                        <p class="module-description">
+                            Build practical projects using Raspberry Pi for home, office, and educational use.
+                        </p>
+                        <ul class="module-topics">
+                            <li>Media Center (Kodi, Plex)</li>
+                            <li>Home Automation System</li>
+                            <li>Network Attached Storage (NAS)</li>
+                            <li>Retro Gaming Console</li>
+                            <li>Weather Station</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-number">Module 4</div>
+                        <h4 class="module-title">Advanced Raspberry Pi Applications</h4>
+                        <p class="module-description">
+                            Explore advanced applications of Raspberry Pi in IoT, robotics, and AI.
+                        </p>
+                        <ul class="module-topics">
+                            <li>IoT Gateway Development</li>
+                            <li>Computer Vision with OpenCV</li>
+                            <li>Machine Learning on Raspberry Pi</li>
+                            <li>Cluster Computing with Multiple Pis</li>
+                            <li>Industrial Applications</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- STM32 Course -->
+            <div class="course-content" id="stm32">
+                <div class="course-header">
+                    <h3 class="course-title">STM32 Microcontrollers</h3>
+                    <p class="course-subtitle">
+                        Dive into professional embedded systems development with STM32 microcontrollers. 
+                        Learn ARM architecture, peripheral programming, and real-time applications.
+                    </p>
+                </div>
+                
+                <div class="course-structure">
+                    <div class="module-card">
+                        <div class="module-number">Module 1</div>
+                        <h4 class="module-title">STM32 Fundamentals</h4>
+                        <p class="module-description">
+                            Introduction to STM32 microcontrollers, development tools, and basic programming.
+      

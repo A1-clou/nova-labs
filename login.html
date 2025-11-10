@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Nova Labs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ORIGINAL UI — KEPT EXACTLY AS YOU HAD IT */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #3730a3;
+            --gray: #64748b;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1);
+        }
+
+        .container::before {
+            content: "";
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            position: absolute;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%,100%{transform:scale(1);opacity:1;}
+            50%{transform:scale(1.1);opacity:0.7;}
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .btn {
+            padding: 1rem;
+            width: 100%;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #e5e7eb;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 2rem 0 1rem;
+            color: var(--gray);
+        }
+
+        .social-login {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-btn {
+            padding: .75rem;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            background: white;
+            cursor: pointer;
+            font-size: .95rem;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="logo">
+        <h1><span class="logo-dot"></span> Nova Labs</h1>
+    </div>
+
+    <h2>Welcome Back</h2>
+
+    <form id="loginForm">
+        <div class="form-group">
+            <label>Email</label>
+            <div class="input-wrapper">
+                <input type="email" id="email" placeholder="Enter your email" required>
+                <i class="fas fa-envelope input-icon"></i>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <div class="input-wrapper">
+                <input type="password" id="password" placeholder="Enter your password" required>
+                <i class="fas fa-lock input-icon"></i>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Login</button>
+    </form>
+
+    <div class="divider">or continue with</div>
+
+    <div class="social-login">
+        <button class="social-btn" id="googleLogin"><i class="fab fa-google"></i> Google</button>
+        <button class="social-btn" id="githubLogin"><i class="fab fa-github"></i> GitHub</button>
+    </div>
+
+    <p style="text-align:center; margin-top:1rem;">
+        Don’t have an account? <a href="signup.html">Create an account</a>
+    </p>
+</div>
+
+<!-- ✅ FIXED LOGIN LOGIC INCLUDING SOCIAL LOGINS -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Normal Email/Password Login
+    const loginForm = document.getElementById("loginForm");
+
+    loginForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const password = document.getElementById("password").value.trim();
+
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        const foundUser = users.find(
+            user => user.email === email && user.password === password
+        );
+
+        if (!foundUser) {
+            alert("Invalid email or password!");
+            return;
+        }
+
+        localStorage.setItem("activeUser", JSON.stringify(foundUser));
+        window.location.href = "profile.html";
+    });
+
+
+    // ✅ Google Login (Mock)
+    document.getElementById("googleLogin").onclick = function() {
+        const mock = { fullName: "Google User", email: "google_user@nlab.com" };
+        localStorage.setItem("activeUser", JSON.stringify(mock));
+        alert("Logged in with Google!");
+        window.location.href = "profile.html";
+    };
+
+    // ✅ GitHub Login (Mock)
+    document.getElementById("githubLogin").onclick = function() {
+        const mock = { fullName: "GitHub User", email: "github_user@nlab.com" };
+        localStorage.setItem("activeUser", JSON.stringify(mock));
+        alert("Logged in with GitHub!");
+        window.location.href = "profile.html";
+    };
+
+});
+</script>
+
+</body>
+</html>

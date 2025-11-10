@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policy | Nova Labs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1e3a8a;
+            --primary-dark: #1e40af;
+            --secondary: #3730a3;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo-dot {
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-auth {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-left: 1rem;
+            padding-left: 1rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-auth a {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-auth a.signup {
+            background: white;
+            color: var(--primary-dark);
+        }
+
+        .nav-auth a.signup:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        .nav-auth a.login {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .nav-auth a.login:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 10rem 2rem 5rem;
+            text-align: center;
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(30, 64, 175, 0.6)), 
+                        url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: white;
+            line-height: 1.6;
+        }
+
+        /* Policy Content */
+        .policy-content {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .policy-section {
+            margin-bottom: 4rem;
+        }
+
+        .policy-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        .policy-section h3 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: var(--accent);
+        }
+
+        .policy-section p {
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        .policy-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .policy-section li {
+            line-height: 1.7;
+            margin-bottom: 0.8rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        .policy-card {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .policy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+
+        .policy-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .last-updated {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            color: white;
+            line-height: 1.6;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+        }
+
+        .btn-light {
+            background: white;
+            color: var(--primary-dark);
+            border: none;
+        }
+
+        .btn-light:hover {
+            background: #f1f5f9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0f1c;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: white;
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Circuit Dots */
+        .circuit-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: white;
+            opacity: 0.3;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .dot:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .dot:nth-child(2) {
+            top: 60%;
+            left: 85%;
+            animation-delay: 1s;
+            background: white;
+        }
+
+        .dot:nth-child(3) {
+            top: 80%;
+            left: 15%;
+            animation-delay: 2s;
+            background: white;
+        }
+
+        .dot:nth-child(4) {
+            top: 40%;
+            left: 90%;
+            animation-delay: 3s;
+            background: white;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-20px) scale(1.1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .nav-auth {
+                margin-left: 0.5rem;
+                padding-left: 0.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(15, 23, 42, 0.95);
+                flex-direction: column;
+                padding: 1rem 0;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-auth {
+                border-left: none;
+                margin-left: 0;
+                padding-left: 0;
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+            }
+
+            .nav-auth a {
+                width: 80%;
+                margin: 0 auto;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .page-subtitle {
+                font-size: 1rem;
+            }
+
+            .policy-content {
+                padding: 3rem 1.5rem;
+            }
+
+            .policy-section h2 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-dot"></div>
+                <a href="index.html" style="color: white; text-decoration: none;">Nova Labs</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="technologies.html">Our Technologies</a>
+                <a href="programmes.html">Programmes</a>
+                <a href="projects.html">Projects</a>
+                <a href="members.html">Members</a>
+                <a href="policy.html" class="active">Policy</a>
+                <div class="nav-auth">
+                    <a href="login.html" class="login">Login</a>
+                    <a href="signup.html" class="signup">Sign Up</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="circuit-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <h1 class="page-title">Our Policies</h1>
+        <p class="page-subtitle">
+            Learn about Nova Labs' commitment to safety, ethics, and responsible innovation in robotics and automation.
+        </p>
+    </section>
+
+    <!-- Policy Content -->
+    <section class="policy-content">
+        <div class="policy-section">
+            <h2>Privacy Policy</h2>
+            <p>
+                At Nova Labs, we are committed to protecting your privacy and ensuring the security of your personal information. 
+                This policy outlines how we collect, use, and safeguard your data.
+            </p>
+
+            <div class="policy-card">
+                <h3>Information We Collect</h3>
+                <ul>
+                    <li>Personal identification information (Name, email address, phone number)</li>
+                    <li>Project data and technical specifications</li>
+                    <li>Usage data and analytics</li>
+                    <li>Communication preferences</li>
+                </ul>
+            </div>
+
+            <div class="policy-card">
+                <h3>How We Use Your Information</h3>
+                <ul>
+                    <li>To provide and maintain our services</li>
+                    <li>To improve user experience</li>
+                    <li>To communicate important updates</li>
+                    <li>To ensure platform security</li>
+                </ul>
+            </div>
+
+            <h3>Data Protection</h3>
+            <p>
+                We implement appropriate security measures to protect your personal information against unauthorized access, 
+                alteration, disclosure, or destruction. Your data is stored on secure servers and accessed only by authorized personnel.
+            </p>
+        </div>
+
+        <div class="policy-section">
+            <h2>Safety & Ethics Policy</h2>
+            <p>
+                Nova Labs is dedicated to promoting safe and ethical practices in robotics and automation development.
+            </p>
+
+            <div class="policy-card">
+                <h3>Safety Guidelines</h3>
+                <ul>
+                    <li>All projects must include proper safety documentation</li>
+                    <li>Risk assessments are required for all experimental work</li>
+                    <li>Emergency protocols must be established and practiced</li>
+                    <li>Proper personal protective equipment must be used</li>
+                </ul>
+            </div>
+
+            <div class="policy-card">
+                <h3>Ethical Standards</h3>
+                <ul>
+                    <li>Respect for human dignity and rights</li>
+                    <li>Transparency in AI and automation systems</li>
+                    <li>Accountability for system behavior</li>
+                    <li>Fairness and non-discrimination in algorithms</li>
+                </ul>
+            </div>
+
+            <h3>Compliance</h3>
+            <p>
+                All Nova Labs projects must comply with relevant local, national, and international regulations 
+                governing robotics, automation, and artificial intelligence.
+            </p>
+        </div>
+
+        <div class="policy-section">
+            <h2>Community Guidelines</h2>
+            <p>
+                Our community is built on principles of collaboration, respect, and innovation.
+            </p>
+
+            <div class="policy-card">
+                <h3>Code of Conduct</h3>
+                <ul>
+                    <li>Treat all members with respect and professionalism</li>
+                    <li>Share knowledge and help others learn</li>
+                    <li>Give proper credit for others' work</li>
+                    <li>Maintain a harassment-free environment</li>
+                </ul>
+            </div>
+
+            <div class="policy-card">
+                <h3>Project Collaboration</h3>
+                <ul>
+                    <li>Open communication and regular updates</li>
+                    <li>Clear documentation of work</li>
+                    <li>Respect for intellectual property rights</li>
+                    <li>Constructive feedback and peer review</li>
+                </ul>
+            </div>
+
+            <h3>Enforcement</h3>
+            <p>
+                Violations of community guidelines may result in temporary or permanent suspension of access to 
+                Nova Labs resources and facilities.
+            </p>
+        </div>
+
+        <div class="policy-section">
+            <h2>Intellectual Property Policy</h2>
+            <p>
+                Protecting intellectual property while fostering innovation is central to our mission.
+            </p>
+
+            <div class="policy-card">
+                <h3>Ownership Rights</h3>
+                <ul>
+                    <li>Individual creators retain rights to their original work</li>
+                    <li>Collaborative projects require clear ownership agreements</li>
+                    <li>Open source contributions follow respective license terms</li>
+                    <li>Nova Labs claims no ownership of member-created content</li>
+                </ul>
+            </div>
+
+            <div class="policy-card">
+                <h3>Licensing</h3>
+                <ul>
+                    <li>Choose appropriate licenses for your projects</li>
+                    <li>Respect third-party intellectual property</li>
+                    <li>Document all external dependencies</li>
+                    <li>Follow open source contribution guidelines</li>
+                </ul>
+            </div>
+
+            <h3>Commercialization</h3>
+            <p>
+                Members are encouraged to commercialize their innovations, with Nova Labs providing support 
+                through mentorship and resources while respecting individual ownership rights.
+            </p>
+        </div>
+
+        <div class="last-updated">
+            <p><strong>Last Updated:</strong> January 15, 2025</p>
+            <p>For questions about our policies, please contact: policies@novalabs.org</p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-content">
+            <h2 class="cta-title">Have Questions About Our Policies?</h2>
+            <p class="cta-text">
+                Our team is here to help clarify any policy questions and ensure you have the information you need 
+                to work safely and effectively within our community.
+            </p>
+            <a href="index.html" class="btn btn-light">Back to Home</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Nova Labs</h3>
+                <p style="color: white; line-height: 1.6;">
+                    Building the future of robotics through innovation, education, and community collaboration.
+                </p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="technologies.html">Technologies</a></li>
+                    <li><a href="programmes.html">Programmes</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="members.html">Members</a></li>
+                    <li><a href="policy.html">Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Project Gallery</a></li>
+                    <li><a href="#">Community Forum</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Account</h3>
+                <ul class="footer-links">
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="signup.html">Sign Up</a></li>
+                    <li><a href="#">My Projects</a></li>
+                    <li><a href="#">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Nova Labs. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.padding = '0.5rem 0';
+                nav.style.background = 'rgba(15, 23, 42, 0.95)';
+            } else {
+                nav.style.padding = '1rem 0';
+                nav.style.background = 'rgba(15, 23, 42, 0.9)';
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
